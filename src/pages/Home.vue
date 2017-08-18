@@ -95,8 +95,8 @@
                          <Icon type="paper-airplane" :size="logoSize" v-show="logoIsDisplay"></Icon>
                          <span class="layout-text"> 三权分置发证系统</span>
                      </div>
-                   <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
-                        <Submenu :name="item.name" v-if="!item.leaf">
+                   <template v-for="(item,index) in menu" >
+                        <Submenu :name="item.name" v-if="item.level==2">
                             <template slot="title">
                                 <Icon :type="item.iconCls" :size="iconSize"></Icon>
                                 <span class="layout-text" >{{item.name}}</span>
@@ -146,19 +146,19 @@
             </i-col>
         </Row>
 
-          <Modal v-model="modal1" title="修改密码" @on-ok.prevent="comfirmModifyPS"  @on-cancel="cancel" >
-            <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
-                <Form-item label="原密码" prop="oldPassword">
-                    <Input v-model="formValidate.oldPassword" placeholder="请输入原始密码"></Input>
-                </Form-item>
-                <Form-item label="新密码" prop="newPassword">
-                    <Input v-model="formValidate.newPassword" placeholder="请输入新密码"></Input>
-                </Form-item>
-                 <Form-item label="确认新密码" prop="resetPassword">
-                    <Input v-model="formValidate.resetPassword" placeholder="请再次输入新密码"></Input>
-                </Form-item>
-            </Form>
-        </Modal>
+      <Modal v-model="modal1" title="修改密码" @on-ok.prevent="comfirmModifyPS"  @on-cancel="cancel" >
+        <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
+          <Form-item label="原密码" prop="oldPassword">
+            <Input v-model="formValidate.oldPassword" placeholder="请输入原始密码"></Input>
+          </Form-item>
+          <Form-item label="新密码" prop="newPassword">
+            <Input v-model="formValidate.newPassword" placeholder="请输入新密码"></Input>
+          </Form-item>
+          <Form-item label="确认新密码" prop="resetPassword">
+            <Input v-model="formValidate.resetPassword" placeholder="请再次输入新密码"></Input>
+          </Form-item>
+        </Form>
+      </Modal>
     </div>
     <!-- 修改密码 模态框 -->
 
@@ -166,6 +166,7 @@
 </template>
 
 <script>
+  import _ from "lodash"
     export default {
         data () {
             return {
@@ -207,6 +208,10 @@
                     this.logoIsDisplay = false;
                     return 0;
                 }
+            },
+            menu(){
+              let menu=_.cloneDeep(this.$router.options.routes[0])
+               return [menu.children[1]]
             }
         },
         methods: {
@@ -244,6 +249,7 @@
                 this.$Message.info('点击了取消');
             },
             menuSelect(name) {
+              debugger
                  this.$router.push({ path: name });
             }
 
