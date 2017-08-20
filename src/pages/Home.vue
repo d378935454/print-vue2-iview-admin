@@ -33,14 +33,16 @@
 
     }
     .layout-logo-left{
-        width: 90%;
-        height: 60px;
-        line-height: 60px;
-        font-size: 28px;
-        text-align: center;
-      /*  background: #5b6270;
-        border-radius: 3px;
-        margin: 15px auto;*/
+      width: 90%;
+      height: 30px;
+      background: #5b6270;
+      border-radius: 3px;
+      margin: 15px auto;
+      line-height: 30px;
+      color: white;
+      text-align: center;
+      vertical-align: middle;
+      overflow: hidden;
     }
     .layout-ceiling-main a{
         color: #9ba7b5;
@@ -92,8 +94,8 @@
             <i-col :span="spanLeft" class="layout-menu-left">
                 <Menu :mode="modeType" theme="dark" width="auto" :active-name="this.$route.path" :open-names="openNames" @on-select="menuSelect" accordion>
                      <div class="layout-logo-left">
-                         <Icon type="paper-airplane" :size="logoSize" v-show="logoIsDisplay"></Icon>
-                         <span class="layout-text"> 三权分置发证系统</span>
+                         <!--<Icon type="paper-airplane" :size="logoSize" v-show="logoIsDisplay"></Icon>-->
+                       <h3>后台管理</h3>
                      </div>
                    <template v-for="(item,index) in menu" >
                         <Submenu :name="item.name" v-if="item.level==2">
@@ -122,13 +124,9 @@
                     <div class="userinfo">
                       <Dropdown placement="bottom-end">
                         <span class="head-img">
-                            {{curUserName}}
-                            <img src="../assets/user.jpg">
+                            {{curUserName}}|
+                            管理员|<span style="cursor: pointer" @click="modifyPassWord">修改密码</span>|<span style="cursor: pointer" @click="logout">退出</span>
                         </span>
-                        <Dropdown-menu slot="list">
-                            <Dropdown-item @click.native="modifyPassWord()">修改密码</Dropdown-item>
-                            <Dropdown-item  @click.native="logout()" divided>退出</Dropdown-item>
-                        </Dropdown-menu>
                     </Dropdown>
                     </div>
                 </div>
