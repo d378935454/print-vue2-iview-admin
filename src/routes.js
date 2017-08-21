@@ -21,12 +21,12 @@ let routes = [
     children: [
       {path: '/main', component: Main, name: '主页', hidden: true},
       {
-        path: '/print', component: printpage, name: '打印证书',level:2,
+        path: '/print', component: printpage, name: '打印证书',icon: 'ios-home',level:2,
         children: [
           // UserHome will be rendered inside User's <router-view>
           // when /user/:id is matched
           {
-            path: 'page0', name: '打印首页',iconCls: 'ios-home', component: function (resolve) {
+            path: 'page0', name: '打印首页',icon: 'ios-home', component: function (resolve) {
             require(["./pages/print/firstpage.vue"], resolve)
           }
           },
